@@ -23,6 +23,7 @@ file = File.open("./src/assets/insults.json")
 @funny_loop = 1
 @til_loop = 1
 @tihi_loop = 1
+@showerThought_loop = 2
 
 bot.message(start_with: '!insult') do |event|
     username = event.message.to_s.slice(8, 50)
@@ -31,6 +32,50 @@ bot.message(start_with: '!insult') do |event|
     random_insult = @data.fetch("#{random_insult_key}")
     puts "Insulting #{username.to_s}"
     event.respond "#{username}" "\n" "#{random_insult.to_s}"
+end
+
+bot.message(with_text: '!st') do |event|
+    event.message.delete
+    session = Redd.it(
+        user_agent: credentials['user_agent'],
+        client_id:  credentials['client_id'],
+        secret:     credentials['secret'], 
+        username:   credentials['username'],
+        password:   credentials['password']
+      )
+    showerThought_subreddit = session.subreddit('showerthoughts')
+    
+    if @showerThought_loop == 1
+        posts = showerThought_subreddit.hot.first
+            elsif @showerThought_loop == 2
+                posts = showerThought_subreddit.hot.last
+            elsif @showerThought_loop == 3
+                posts = showerThought_subreddit.new.first
+            elsif @showerThought_loop == 4
+                posts = showerThought_subreddit.new.last
+            elsif @showerThought_loop == 5
+                posts = showerThought_subreddit.top.first
+            elsif @showerThought_loop == 6
+                posts = showerThought_subreddit.top.last
+            elsif @showerThought_loop == 7
+                posts = showerThought_subreddit.rising.first
+            elsif @showerThought_loop == 8
+                posts = showerThought_subreddit.rising.last
+            elsif @showerThought_loop == 9
+                posts = showerThought_subreddit.controversial.first
+            else
+                posts = showerThought_subreddit.controversial.last
+    end
+
+    puts "Posting Shower Thought " + "#{@showerThought_loop.to_i}"
+
+    @showerThought_loop += 1
+
+    if @showerThought_loop == 11
+        @showerThought_loop = @showerThought_loop - 9
+    end
+     
+    event.respond "**""#{posts.title}" "**" "\n"  "#{posts.selftext}"
 end
 
 bot.message(with_text: '!meme') do |event|
