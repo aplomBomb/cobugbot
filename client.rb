@@ -2,6 +2,7 @@ require 'discordrb'
 require 'json'
 require 'yaml'
 require 'redd' 
+# require './src/assets/insults.json'
 
 credentials = YAML.load_file('./credentials.yaml')
 
@@ -25,7 +26,7 @@ file = File.open("./src/assets/insults.json")
 @tihi_loop = 1
 @showerThought_loop = 2
 
-bot.message(start_with: '!insult') do |event|
+bot.message(start_with: '!insult') do |event| 
     username = event.message.to_s.slice(8, 50)
     event.message.delete
     random_insult_key = (rand() * @data.length).to_i
