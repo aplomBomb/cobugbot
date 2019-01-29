@@ -35,7 +35,7 @@ bot.message(start_with: '&insult') do |event|
     event.respond "#{username}" "\n" "#{random_insult.to_s}"
 end
 
-bot.message(with_text: '&showerthought') do |event|
+bot.message(with_text: '&st') do |event|
     event.message.delete
     session = Redd.it(
         user_agent: credentials['user_agent'],
@@ -69,7 +69,7 @@ bot.message(with_text: '&showerthought') do |event|
     end
 
     if posts.url.start_with?('https://v.redd.it') || posts.url.start_with?('https://www.reddit.com')
-        posts = ""
+        posts = nil
         random_insult_key = (rand() * @data.length).to_i
         random_insult = @data.fetch("#{random_insult_key}")                              #every now and then the bot will just insult you
         puts "Insulting someone #{random_insult}"                                        #instead of taking you to a reddit thread
@@ -122,14 +122,14 @@ bot.message(with_text: '&meme') do |event|
     end
 
     if posts.url.start_with?('https://v.redd.it') || posts.url.start_with?('https://www.reddit.com')
-        posts = ""
+        posts = nil
         random_insult_key = (rand() * @data.length).to_i
         random_insult = @data.fetch("#{random_insult_key}")                   #every now and then the bot will just insult you
         puts "Insulting someone #{random_insult}"                             #instead of taking you to a reddit thread
         event.respond "**Oh you want a meme?**" "\n" "#{random_insult.to_s}"  #because thread links are lame :D
 
     end
-
+    
     puts "Posting meme " + "#{@meme_loop.to_i}"
 
     @meme_loop += 1
@@ -138,10 +138,15 @@ bot.message(with_text: '&meme') do |event|
         @meme_loop = @meme_loop - 10
     end
      
-    event.respond "**__""#{posts.title}" "__**" "\n"  "#{posts.url}"
+    begin
+        event.respond "**__""#{posts.title}" "__**" "\n"  "#{posts.url}"
+    rescue => exception
+        
+    end
+    
 end
 
-bot.message(with_text: '&dadjoke') do |event|
+bot.message(with_text: '&dj') do |event|
     event.message.delete
     session = Redd.it(
         user_agent: credentials['user_agent'],
@@ -225,7 +230,7 @@ bot.message(with_text: '&gif') do |event|
     end
 
     if posts.url.start_with?('https://v.redd.it') || posts.url.start_with?('https://www.reddit.com')
-        posts = ""
+        posts = nil
         random_insult_key = (rand() * @data.length).to_i
         random_insult = @data.fetch("#{random_insult_key}")                   #every now and then the bot will just insult you
         puts "Insulting someone #{random_insult}"                             #instead of taking you to a reddit thread
@@ -240,12 +245,16 @@ bot.message(with_text: '&gif') do |event|
         @gif_loop = @gif_loop - 10
     end
      
-    # puts "#{posts.inspect}"
-    event.respond"**__""#{posts.title}" "__**" "\n"  "#{posts.url}"
+    begin
+        event.respond"**__""#{posts.title}" "__**" "\n"  "#{posts.url}"
+    rescue => exception
+        puts 'Terminated Reddit thread link and insulted the person like a good bot instead'
+    end
+    
         
 end
 
-bot.message(with_text: '&funny') do |event|
+bot.message(with_text: '&lol') do |event|
     event.message.delete
     session = Redd.it(
         user_agent: credentials['user_agent'],
@@ -280,7 +289,7 @@ bot.message(with_text: '&funny') do |event|
     end
 
     if posts.url.start_with?('https://v.redd.it') || posts.url.start_with?('https://www.reddit.com')
-        posts = ""
+        posts = nil
         random_insult_key = (rand() * @data.length).to_i
         random_insult = @data.fetch("#{random_insult_key}")                                    #every now and then the bot will just insult you
         puts "Insulting someone #{random_insult}"                                              #instead of taking you to a reddit thread
@@ -296,10 +305,15 @@ bot.message(with_text: '&funny') do |event|
         @funny_loop = @funny_loop - 10
     end
      
-    event.respond "**__""#{posts.title}" "__**" "\n"  "#{posts.selftext} #{posts.url}"
+    begin
+        event.respond "**__""#{posts.title}" "__**" "\n"  "#{posts.selftext} #{posts.url}"
+    rescue => exception
+        puts 'Terminated Reddit thread link and insulted the person like a good bot instead'
+    end
+    
 end
 
-bot.message(with_text: '&learn') do |event|
+bot.message(with_text: '&til') do |event|
     event.message.delete
     session = Redd.it(
         user_agent: credentials['user_agent'],
@@ -333,7 +347,7 @@ bot.message(with_text: '&learn') do |event|
     end
 
     if posts.url.start_with?('https://v.redd.it') || posts.url.start_with?('https://www.reddit.com')
-        posts = ""
+        posts = nil
         random_insult_key = (rand() * @data.length).to_i
         random_insult = @data.fetch("#{random_insult_key}")                                #every now and then the bot will just insult you
         puts "Insulting someone #{random_insult}"                                          #instead of taking you to a reddit thread
@@ -349,10 +363,15 @@ bot.message(with_text: '&learn') do |event|
         @til_loop = @til_loop - 10
     end
      
-    event.respond "**""#{posts.title}" "**" "\n"  "#{posts.url}"
+    begin
+        event.respond "**""#{posts.title}" "**" "\n"  "#{posts.url}"
+    rescue => exception
+        puts 'Terminated Reddit thread link and insulted the person like a good bot instead'
+    end
+    
 end
 
-bot.message(with_text: '&ihateit') do |event|
+bot.message(with_text: '&ihi') do |event|
     event.message.delete
     session = Redd.it(
         user_agent: credentials['user_agent'],
@@ -386,7 +405,7 @@ bot.message(with_text: '&ihateit') do |event|
     end
 
     if posts.url.start_with?('https://v.redd.it') || posts.url.start_with?('https://www.reddit.com')
-        posts = ""
+        posts = nil
         random_insult_key = (rand() * @data.length).to_i
         random_insult = @data.fetch("#{random_insult_key}")                                                        #every now and then the bot will just insult you
         puts "Insulting someone #{random_insult}"                                                                  #instead of taking you to a reddit thread
@@ -402,6 +421,11 @@ bot.message(with_text: '&ihateit') do |event|
         @tihi_loop = @tihi_loop - 10
     end
      
-    event.respond "**__""#{posts.title}" "__**" "\n"  "#{posts.url}"
+    begin
+        event.respond "**__""#{posts.title}" "__**" "\n"  "#{posts.url}"
+    rescue => exception
+        puts 'Terminated Reddit thread link and insulted the person like a good bot instead'
+    end
+    
 end
 bot.run 
