@@ -24,7 +24,7 @@ file = File.open("./src/assets/insults.json")
 @funny_loop = 1
 @til_loop = 1
 @tihi_loop = 1
-@showerThought_loop = 1
+@showerThought_loop = 2
 
 bot.message(start_with: '&insult') do |event| 
     username = event.message.to_s.slice(8, 50)
@@ -68,21 +68,12 @@ bot.message(with_text: '&st') do |event|
                 posts = showerThought_subreddit.controversial.last
     end
 
-    if posts.url.start_with?('https://v.redd.it') || posts.url.start_with?('https://www.reddit.com')
-        posts = nil
-        random_insult_key = (rand() * @data.length).to_i
-        random_insult = @data.fetch("#{random_insult_key}")                              #every now and then the bot will just insult you
-        puts "Insulting someone #{random_insult}"                                        #instead of taking you to a reddit thread
-        event.respond "**Oh you want a shower thought?**" "\n" "#{random_insult.to_s}"   #because thread links are lame :D
-
-    end
-
     puts "Posting Shower Thought " + "#{@showerThought_loop.to_i}"
 
     @showerThought_loop += 1
 
     if @showerThought_loop == 11
-        @showerThought_loop = @showerThought_loop - 10
+        @showerThought_loop = @showerThought_loop - 9
     end
      
     event.respond "**""#{posts.title}" "**" "\n"  "#{posts.selftext}"
