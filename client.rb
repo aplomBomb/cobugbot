@@ -20,13 +20,13 @@ file = File.open("./src/assets/insults.json")
 
 @meme_loop = 1
 @dadjoke_loop = 1
-@gif_loop = 2
+@gif_loop = 1
 @funny_loop = 1
 @til_loop = 1
 @tihi_loop = 1
-@showerThought_loop = 2
+@showerThought_loop = 1
 
-bot.message(start_with: '!insult') do |event| 
+bot.message(start_with: '&insult') do |event| 
     username = event.message.to_s.slice(8, 50)
     event.message.delete
     random_insult_key = (rand() * @data.length).to_i
@@ -35,7 +35,7 @@ bot.message(start_with: '!insult') do |event|
     event.respond "#{username}" "\n" "#{random_insult.to_s}"
 end
 
-bot.message(with_text: '!st') do |event|
+bot.message(with_text: '&showerthought') do |event|
     event.message.delete
     session = Redd.it(
         user_agent: credentials['user_agent'],
@@ -68,18 +68,27 @@ bot.message(with_text: '!st') do |event|
                 posts = showerThought_subreddit.controversial.last
     end
 
+    if posts.url.start_with?('https://v.redd.it') || posts.url.start_with?('https://www.reddit.com')
+        posts = ""
+        random_insult_key = (rand() * @data.length).to_i
+        random_insult = @data.fetch("#{random_insult_key}")                              #every now and then the bot will just insult you
+        puts "Insulting someone #{random_insult}"                                        #instead of taking you to a reddit thread
+        event.respond "**Oh you want a shower thought?**" "\n" "#{random_insult.to_s}"   #because thread links are lame :D
+
+    end
+
     puts "Posting Shower Thought " + "#{@showerThought_loop.to_i}"
 
     @showerThought_loop += 1
 
     if @showerThought_loop == 11
-        @showerThought_loop = @showerThought_loop - 9
+        @showerThought_loop = @showerThought_loop - 10
     end
      
     event.respond "**""#{posts.title}" "**" "\n"  "#{posts.selftext}"
 end
 
-bot.message(with_text: '!meme') do |event|
+bot.message(with_text: '&meme') do |event|
     event.message.delete
     session = Redd.it(
         user_agent: credentials['user_agent'],
@@ -112,6 +121,15 @@ bot.message(with_text: '!meme') do |event|
                 posts = meme_subreddit.controversial.last
     end
 
+    if posts.url.start_with?('https://v.redd.it') || posts.url.start_with?('https://www.reddit.com')
+        posts = ""
+        random_insult_key = (rand() * @data.length).to_i
+        random_insult = @data.fetch("#{random_insult_key}")                   #every now and then the bot will just insult you
+        puts "Insulting someone #{random_insult}"                             #instead of taking you to a reddit thread
+        event.respond "**Oh you want a meme?**" "\n" "#{random_insult.to_s}"  #because thread links are lame :D
+
+    end
+
     puts "Posting meme " + "#{@meme_loop.to_i}"
 
     @meme_loop += 1
@@ -123,7 +141,7 @@ bot.message(with_text: '!meme') do |event|
     event.respond "**__""#{posts.title}" "__**" "\n"  "#{posts.url}"
 end
 
-bot.message(with_text: '!dadjoke') do |event|
+bot.message(with_text: '&dadjoke') do |event|
     event.message.delete
     session = Redd.it(
         user_agent: credentials['user_agent'],
@@ -172,7 +190,7 @@ bot.message(with_text: '!dadjoke') do |event|
 
 end
 
-bot.message(with_text: '!gif') do |event|
+bot.message(with_text: '&gif') do |event|
     event.message.delete
     session = Redd.it(
         user_agent: credentials['user_agent'],
@@ -206,12 +224,20 @@ bot.message(with_text: '!gif') do |event|
                 posts = gif_subreddit.controversial.last
     end
 
+    if posts.url.start_with?('https://v.redd.it') || posts.url.start_with?('https://www.reddit.com')
+        posts = ""
+        random_insult_key = (rand() * @data.length).to_i
+        random_insult = @data.fetch("#{random_insult_key}")                   #every now and then the bot will just insult you
+        puts "Insulting someone #{random_insult}"                             #instead of taking you to a reddit thread
+        event.respond "**Oh you want a gif?**" "\n" "#{random_insult.to_s}"   #because thread links are lame :D
+
+    end
     puts "Posting gif " + "#{@gif_loop.to_i}"
 
     @gif_loop += 1
 
     if @gif_loop == 11
-        @gif_loop = @gif_loop - 9
+        @gif_loop = @gif_loop - 10
     end
      
     # puts "#{posts.inspect}"
@@ -219,7 +245,7 @@ bot.message(with_text: '!gif') do |event|
         
 end
 
-bot.message(with_text: '!lol') do |event|
+bot.message(with_text: '&funny') do |event|
     event.message.delete
     session = Redd.it(
         user_agent: credentials['user_agent'],
@@ -253,6 +279,15 @@ bot.message(with_text: '!lol') do |event|
                 posts = funny_subreddit.controversial.last
     end
 
+    if posts.url.start_with?('https://v.redd.it') || posts.url.start_with?('https://www.reddit.com')
+        posts = ""
+        random_insult_key = (rand() * @data.length).to_i
+        random_insult = @data.fetch("#{random_insult_key}")                                    #every now and then the bot will just insult you
+        puts "Insulting someone #{random_insult}"                                              #instead of taking you to a reddit thread
+        event.respond "**Oh you want to LOL, how about this?**" "\n" "#{random_insult.to_s}"   #because thread links are lame :D
+
+    end
+
     puts "Posting funny " + "#{@funny_loop.to_i}"
 
     @funny_loop += 1
@@ -264,7 +299,7 @@ bot.message(with_text: '!lol') do |event|
     event.respond "**__""#{posts.title}" "__**" "\n"  "#{posts.selftext} #{posts.url}"
 end
 
-bot.message(with_text: '!til') do |event|
+bot.message(with_text: '&learn') do |event|
     event.message.delete
     session = Redd.it(
         user_agent: credentials['user_agent'],
@@ -297,6 +332,15 @@ bot.message(with_text: '!til') do |event|
                 posts = til_subreddit.controversial.last
     end
 
+    if posts.url.start_with?('https://v.redd.it') || posts.url.start_with?('https://www.reddit.com')
+        posts = ""
+        random_insult_key = (rand() * @data.length).to_i
+        random_insult = @data.fetch("#{random_insult_key}")                                #every now and then the bot will just insult you
+        puts "Insulting someone #{random_insult}"                                          #instead of taking you to a reddit thread
+        event.respond "**Oh you want to learn something?**" "\n" "#{random_insult.to_s}"   #because thread links are lame :D
+
+    end
+
     puts "Posting t.i.l. " + "#{@til_loop.to_i}"
 
     @til_loop += 1
@@ -308,7 +352,7 @@ bot.message(with_text: '!til') do |event|
     event.respond "**""#{posts.title}" "**" "\n"  "#{posts.url}"
 end
 
-bot.message(with_text: '!tihi') do |event|
+bot.message(with_text: '&ihateit') do |event|
     event.message.delete
     session = Redd.it(
         user_agent: credentials['user_agent'],
@@ -339,6 +383,15 @@ bot.message(with_text: '!tihi') do |event|
                 posts = meme_subreddit.controversial.first
             else
                 posts = meme_subreddit.controversial.last
+    end
+
+    if posts.url.start_with?('https://v.redd.it') || posts.url.start_with?('https://www.reddit.com')
+        posts = ""
+        random_insult_key = (rand() * @data.length).to_i
+        random_insult = @data.fetch("#{random_insult_key}")                                                        #every now and then the bot will just insult you
+        puts "Insulting someone #{random_insult}"                                                                  #instead of taking you to a reddit thread
+        event.respond "**You want to see something you hate? Look in the mirror.**" "\n" "#{random_insult.to_s}"   #because thread links are lame :D
+
     end
 
     puts "Posting TIHI " + "#{@tihi_loop.to_i}"
