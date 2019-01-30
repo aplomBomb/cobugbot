@@ -1,4 +1,4 @@
 #ignore login credentials
 
 credentials.yaml
-insults.json
+./src/assets/insults.json
