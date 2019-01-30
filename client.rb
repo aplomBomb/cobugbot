@@ -27,17 +27,26 @@ file = File.open("./src/assets/insults.json")
 @showerThought_loop = 2
 
 bot.message(start_with: '&insult') do |event| 
-    username = event.message.to_s.slice(8, 50)
-    event.message.delete
-    random_insult_key = (rand() * @data.length).to_i
-    random_insult = @data.fetch("#{random_insult_key}")
-    puts "Insulting #{username.to_s}"
-    event.respond "#{username}" "\n" "#{random_insult.to_s}"
+    begin
+        username = event.message.to_s.slice(8, 50)
+        event.message.delete
+        random_insult_key = (rand() * @data.length).to_i
+        random_insult = @data.fetch("#{random_insult_key}")
+        puts "Insulting #{username.to_s}"
+        event.respond "#{username}" "\n" "#{random_insult.to_s}"
+    rescue => exception
+        random_insult_key = (rand() * @data.length).to_i
+        random_insult = @data.fetch("#{random_insult_key}")
+        puts "Demanding perms"
+        event.user.pm "**I need permissions you dumbass**" "\n" "#{random_insult.to_s}"
+    end
+    
 end
 
 bot.message(with_text: '&st') do |event|
-    event.message.delete
-    session = Redd.it(
+    begin
+        event.message.delete
+        session = Redd.it(
         user_agent: credentials['user_agent'],
         client_id:  credentials['client_id'],
         secret:     credentials['secret'], 
@@ -77,10 +86,18 @@ bot.message(with_text: '&st') do |event|
     end
      
     event.respond "**""#{posts.title}" "**" "\n"  "#{posts.selftext}"
+    rescue => exception
+        random_insult_key = (rand() * @data.length).to_i
+        random_insult = @data.fetch("#{random_insult_key}")
+        puts "Demanding perms"
+        event.user.pm "**I need permissions you dumbass**" "\n" "#{random_insult.to_s}"
+    end
+    
 end
 
 bot.message(with_text: '&meme') do |event|
-    event.message.delete
+    begin
+        event.message.delete
     session = Redd.it(
         user_agent: credentials['user_agent'],
         client_id:  credentials['client_id'],
@@ -134,11 +151,19 @@ bot.message(with_text: '&meme') do |event|
     rescue => exception
         
     end
+    rescue => exception
+        random_insult_key = (rand() * @data.length).to_i
+        random_insult = @data.fetch("#{random_insult_key}")
+        puts "Demanding perms"
+        event.user.pm "**I need permissions you dumbass**" "\n" "#{random_insult.to_s}"
+    end
+    
     
 end
 
 bot.message(with_text: '&dj') do |event|
-    event.message.delete
+    begin
+        event.message.delete
     session = Redd.it(
         user_agent: credentials['user_agent'],
         client_id:  credentials['client_id'],
@@ -183,11 +208,19 @@ bot.message(with_text: '&dj') do |event|
         event.respond "#{posts.thumbnail}"
         puts "No selftext found, posting thumbnail"
     end
+    rescue => exception
+        random_insult_key = (rand() * @data.length).to_i
+        random_insult = @data.fetch("#{random_insult_key}")
+        puts "Demanding perms"
+        event.user.pm "**I need permissions you dumbass**" "\n" "#{random_insult.to_s}"
+    end
+    
 
 end
 
 bot.message(with_text: '&gif') do |event|
-    event.message.delete
+    begin
+        event.message.delete
     session = Redd.it(
         user_agent: credentials['user_agent'],
         client_id:  credentials['client_id'],
@@ -241,12 +274,20 @@ bot.message(with_text: '&gif') do |event|
     rescue => exception
         puts 'Terminated Reddit thread link and insulted the person like a good bot instead'
     end
+    rescue => exception
+        random_insult_key = (rand() * @data.length).to_i
+        random_insult = @data.fetch("#{random_insult_key}")
+        puts "Demanding perms"
+        event.user.pm "**I need permissions you dumbass**" "\n" "#{random_insult.to_s}"
+    end
+    
     
         
 end
 
 bot.message(with_text: '&lol') do |event|
-    event.message.delete
+    begin
+        event.message.delete
     session = Redd.it(
         user_agent: credentials['user_agent'],
         client_id:  credentials['client_id'],
@@ -301,11 +342,19 @@ bot.message(with_text: '&lol') do |event|
     rescue => exception
         puts 'Terminated Reddit thread link and insulted the person like a good bot instead'
     end
+    rescue => exception
+        random_insult_key = (rand() * @data.length).to_i
+        random_insult = @data.fetch("#{random_insult_key}")
+        puts "Demanding perms"
+        event.user.pm "**I need permissions you dumbass**" "\n" "#{random_insult.to_s}"
+    end
+    
     
 end
 
 bot.message(with_text: '&til') do |event|
-    event.message.delete
+    begin
+        event.message.delete
     session = Redd.it(
         user_agent: credentials['user_agent'],
         client_id:  credentials['client_id'],
@@ -359,11 +408,19 @@ bot.message(with_text: '&til') do |event|
     rescue => exception
         puts 'Terminated Reddit thread link and insulted the person like a good bot instead'
     end
+    rescue => exception
+        random_insult_key = (rand() * @data.length).to_i
+        random_insult = @data.fetch("#{random_insult_key}")
+        puts "Demanding perms"
+        event.user.pm "**I need permissions you dumbass**" "\n" "#{random_insult.to_s}"
+    end
+    
     
 end
 
 bot.message(with_text: '&ihi') do |event|
-    event.message.delete
+    begin
+        event.message.delete
     session = Redd.it(
         user_agent: credentials['user_agent'],
         client_id:  credentials['client_id'],
@@ -417,6 +474,13 @@ bot.message(with_text: '&ihi') do |event|
     rescue => exception
         puts 'Terminated Reddit thread link and insulted the person like a good bot instead'
     end
+    rescue => exception
+        random_insult_key = (rand() * @data.length).to_i
+        random_insult = @data.fetch("#{random_insult_key}")
+        puts "Demanding perms"
+        event.user.pm "**I need permissions you dumbass**" "\n" "#{random_insult.to_s}"
+    end
+    
     
 end
 bot.run 
