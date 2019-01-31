@@ -25,7 +25,7 @@ file = File.open("./src/assets/insults.json")
 @til_loop = 1
 @tihi_loop = 1
 @showerThought_loop = 2
-@insult_loop = 1
+@insult_loop = (rand() * @data.length).to_i         #start at a random spot in the insults hash when bot launches
 
 bot.message(start_with: '&insult') do |event| 
     begin
