@@ -25,7 +25,7 @@ file = File.open("./src/assets/insults.json")
 @til_loop = 1
 @tihi_loop = 1
 @showerThought_loop = 2
-@insult_loop = 250
+@insult_loop = 1
 
 bot.message(start_with: '&insult') do |event| 
     begin
