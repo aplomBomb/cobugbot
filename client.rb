@@ -25,20 +25,30 @@ file = File.open("./src/assets/insults.json")
 @til_loop = 1
 @tihi_loop = 1
 @showerThought_loop = 2
+@insult_loop = 250
 
 bot.message(start_with: '&insult') do |event| 
     begin
         username = event.message.to_s.slice(8, 50)
         event.message.delete
-        random_insult_key = (rand() * @data.length).to_i
-        random_insult = @data.fetch("#{random_insult_key}")
+
+        # random_insult_key = (rand() * @data.length).to_i
+        insult = @data.fetch("#{@insult_loop}")
         puts "Insulting #{username.to_s}"
-        event.respond "#{username}" "\n" "#{random_insult.to_s}"
+        event.respond "#{username}" "\n" "#{insult.to_s}"
+        @insult_loop = @insult_loop += 1
+
+        if @insult_loop > @data.length
+            @insult_loop = 1
+        end
+
     rescue => exception
         random_insult_key = (rand() * @data.length).to_i
         random_insult = @data.fetch("#{random_insult_key}")
         puts "Demanding perms"
         event.user.pm "**I need permissions you dumbass**" "\n" "#{random_insult.to_s}"
+        puts "#{exception}"
+        puts "#{@data.length}"
     end
     
 end
