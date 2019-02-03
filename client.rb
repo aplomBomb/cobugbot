@@ -31,8 +31,9 @@ bot.message(start_with: '&insult') do |event|
     begin
         username = event.message.to_s.slice(8, 50)
         event.message.delete
-
-        # random_insult_key = (rand() * @data.length).to_i
+    rescue => exception1
+        puts "Cannot manage messages, ignoring event command."
+        
         insult = @data.fetch("#{@insult_loop}")
         puts "Insulting #{username.to_s}"
         event.respond "#{username}" "\n" "#{insult.to_s}"
@@ -46,7 +47,7 @@ bot.message(start_with: '&insult') do |event|
         random_insult_key = (rand() * @data.length).to_i
         random_insult = @data.fetch("#{random_insult_key}")
         puts "Demanding perms"
-        event.user.pm "**I need permissions you dumbass**" "\n" "#{random_insult.to_s}"
+        event.user.pm "**I need permission to read/send/manage messages you dumbass**" "\n" "#{random_insult.to_s}"
         puts "#{exception}"
         puts "#{@data.length}"
     end
@@ -56,6 +57,10 @@ end
 bot.message(with_text: '&st') do |event|
     begin
         event.message.delete
+
+    # rescue => exception1
+    #     puts "Cannot manage messages, ignoring event command."
+
         session = Redd.it(
         user_agent: credentials['user_agent'],
         client_id:  credentials['client_id'],
@@ -100,7 +105,7 @@ bot.message(with_text: '&st') do |event|
         random_insult_key = (rand() * @data.length).to_i
         random_insult = @data.fetch("#{random_insult_key}")
         puts "Demanding perms"
-        event.user.pm "**I need permissions you dumbass**" "\n" "#{random_insult.to_s}"
+        event.user.pm "**I need permission to read/send/manage messages you dumbass**" "\n" "#{random_insult.to_s}"
     end
     
 end
@@ -108,6 +113,10 @@ end
 bot.message(with_text: '&meme') do |event|
     begin
         event.message.delete
+
+    # rescue => exception1
+    #     puts "Cannot manage messages, ignoring event command."
+
     session = Redd.it(
         user_agent: credentials['user_agent'],
         client_id:  credentials['client_id'],
@@ -165,7 +174,7 @@ bot.message(with_text: '&meme') do |event|
         random_insult_key = (rand() * @data.length).to_i
         random_insult = @data.fetch("#{random_insult_key}")
         puts "Demanding perms"
-        event.user.pm "**I need permissions you dumbass**" "\n" "#{random_insult.to_s}"
+        event.user.pm "**I need permission to read/send/manage messages you dumbass**" "\n" "#{random_insult.to_s}"
     end
     
     
@@ -174,6 +183,10 @@ end
 bot.message(with_text: '&dj') do |event|
     begin
         event.message.delete
+
+    # rescue => exception1
+    #     puts "Cannot manage messages, ignoring event command."
+
     session = Redd.it(
         user_agent: credentials['user_agent'],
         client_id:  credentials['client_id'],
@@ -222,7 +235,7 @@ bot.message(with_text: '&dj') do |event|
         random_insult_key = (rand() * @data.length).to_i
         random_insult = @data.fetch("#{random_insult_key}")
         puts "Demanding perms"
-        event.user.pm "**I need permissions you dumbass**" "\n" "#{random_insult.to_s}"
+        event.user.pm "**I need permission to read/send/manage messages you dumbass**" "\n" "#{random_insult.to_s}"
     end
     
 
@@ -231,6 +244,10 @@ end
 bot.message(with_text: '&gif') do |event|
     begin
         event.message.delete
+
+    # rescue => exception1
+    #     puts "Cannot manage messages, ignoring event command."
+
     session = Redd.it(
         user_agent: credentials['user_agent'],
         client_id:  credentials['client_id'],
@@ -288,7 +305,7 @@ bot.message(with_text: '&gif') do |event|
         random_insult_key = (rand() * @data.length).to_i
         random_insult = @data.fetch("#{random_insult_key}")
         puts "Demanding perms"
-        event.user.pm "**I need permissions you dumbass**" "\n" "#{random_insult.to_s}"
+        event.user.pm "**I need permission to read/send/manage messages you dumbass**" "\n" "#{random_insult.to_s}"
     end
     
     
@@ -298,6 +315,10 @@ end
 bot.message(with_text: '&lol') do |event|
     begin
         event.message.delete
+
+    # rescue => exception1
+    #     puts "Cannot manage messages, ignoring event command."
+
     session = Redd.it(
         user_agent: credentials['user_agent'],
         client_id:  credentials['client_id'],
@@ -356,7 +377,7 @@ bot.message(with_text: '&lol') do |event|
         random_insult_key = (rand() * @data.length).to_i
         random_insult = @data.fetch("#{random_insult_key}")
         puts "Demanding perms"
-        event.user.pm "**I need permissions you dumbass**" "\n" "#{random_insult.to_s}"
+        event.user.pm "**I need permission to read/send/manage messages you dumbass**" "\n" "#{random_insult.to_s}"
     end
     
     
@@ -365,6 +386,10 @@ end
 bot.message(with_text: '&til') do |event|
     begin
         event.message.delete
+
+    # rescue => exception1
+    #     puts "Cannot manage messages, ignoring event command."
+
     session = Redd.it(
         user_agent: credentials['user_agent'],
         client_id:  credentials['client_id'],
@@ -422,7 +447,7 @@ bot.message(with_text: '&til') do |event|
         random_insult_key = (rand() * @data.length).to_i
         random_insult = @data.fetch("#{random_insult_key}")
         puts "Demanding perms"
-        event.user.pm "**I need permissions you dumbass**" "\n" "#{random_insult.to_s}"
+        event.user.pm "**I need permission to read/send/manage messages you dumbass**" "\n" "#{random_insult.to_s}"
     end
     
     
@@ -431,6 +456,10 @@ end
 bot.message(with_text: '&ihi') do |event|
     begin
         event.message.delete
+
+    # rescue => exception1
+    #     puts "Cannot manage messages, ignoring event command."
+
     session = Redd.it(
         user_agent: credentials['user_agent'],
         client_id:  credentials['client_id'],
@@ -488,7 +517,7 @@ bot.message(with_text: '&ihi') do |event|
         random_insult_key = (rand() * @data.length).to_i
         random_insult = @data.fetch("#{random_insult_key}")
         puts "Demanding perms"
-        event.user.pm "**I need permissions you dumbass**" "\n" "#{random_insult.to_s}"
+        event.user.pm "**I need permission to read/send/manage messages you dumbass**" "\n" "#{random_insult.to_s}"
     end
     
     
